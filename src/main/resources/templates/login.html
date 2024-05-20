@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: white;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .login-container {
+            background-color: white;
+            width: 800px; /* Chaque carte prendra 30% de la largeur du conteneur */
+            height: 290px;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            padding: 1rem;
+            margin: 6px;
+            display: inline-block;
+            vertical-align: top;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.3);
+        }
+
+        img{
+            width: 400px;
+        }
+
+        .login-right {
+            flex: 1;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .login-form {
+            width: 100%;
+            max-width: 300px;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .login-form input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .login-form button {
+            display: inline-block;
+            margin-top: 1rem;
+            border-radius: 5rem;
+            background: #333;
+            color: #fff;
+            padding: .7rem 1.7rem;
+            cursor:pointer;
+            font-size: 0.9rem;
+        }
+
+        .login-form button:hover {
+            background-color:  #e84393;
+        }
+        form{
+            position: relative;
+            left: 400px;
+            bottom: 250px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="login-container">
+        <img src="imgs/flr.png" alt="Image" class="login-image">
+        <form class="login-form" action="/login" method="post">
+            Nom :<br>
+            <input type="text" name="username" placeholder="Username" required>
+            Mot de passe :<br>
+            <input type="password" name="password" placeholder="Password" required>
+            <button type="submit" class="btn">Login</button>
+        </form>
+    </div>
+
+</body>
+</html>

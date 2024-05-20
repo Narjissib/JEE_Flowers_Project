@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="template"
+        lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>Index page</title>
+    <link rel="stylesheet" type="text/css" href="webjars/bootstrap/5.3.3/css/bootstrap.min.css"/>
+    <script src="webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet"
+          href="/webjars/bootstrap/5.3.3/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css"
+          href="webjars/bootstrap/5.3.3/css/bootstrap.min.css"/>
+    <script type="text/javascript" src="/webjars/bootstrap/5.3.3/js/bootstrap.bundle.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/5.3.3/js/bootstrap.min.js"></script>
+
+    <style>
+        section{
+            padding: 1rem 9%;
+        }
+        .home{
+            display: flex;
+            align-items: flex-start; /* Modification ici */
+            background-repeat : no-repeat;
+            background-size: cover;
+            background-position: center;
+            flex-direction: column; /* Aligner les éléments en colonne */
+            min-height: 100%; /* Hauteur minimum de la page à 100% de la fenêtre */
+            margin-top: 10rem;
+            font-size: 1.7rem;
+        }
+        .content{
+            max-width: 700rem;
+            margin-top: 7%;
+        }
+        h3{
+            font-size: 3.2rem;
+            color: #333;
+        }
+        span{
+            font-size: 1.5rem;
+            color: var(--pink);
+            padding: 1rem 0;
+            line-height: 1.5;
+        }
+        .plant-image {
+            width: 300px; /* Largeur de l'image */
+            height: auto; /* Hauteur automatique pour maintenir les proportions */
+            display: block; /* Pour aligner l'image au centre */
+            margin: 0 auto 1rem; /* Espacement en dessous de l'image */
+        }
+        .p1{
+            font-size: 2.1rem;
+            color: #110a0a;
+            padding: 1rem 0;
+            line-height: 1.5;
+        }
+        .btn{
+            display: inline-block;
+            margin-top: 1rem;
+            border-radius: 5rem;
+            background: #333;
+            color: #fff;
+            padding: .9rem 3.5rem;
+            cursor:pointer;
+            font-size: 1.7rem;
+        }
+        .btn:hover{
+            background: var(--pink);
+            color:white;
+        }
+        .plant-list {
+            display: flex;
+            flex-wrap: wrap; /* Permet aux éléments de passer à la ligne suivante */
+            justify-content: space-between; /* Répartit l'espace disponible entre les éléments */
+            margin-top: 3%;
+            margin-bottom: 3rem;
+        }
+
+        .plant-card {
+            width: 400px; /* Chaque carte prendra 30% de la largeur du conteneur */
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            padding: 1rem;
+            margin: 6px;
+            display: inline-block;
+            vertical-align: top;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .plant-item {
+            margin-bottom: 1rem;
+        }
+        .plant-item-options {
+            float: right;
+            margin-right: 1rem;
+        }
+        .plant-item-text {
+            font-size: 1rem;
+            width: 400px;
+            word-wrap: break-word;
+        }
+
+        .plant-image{
+            width: 200px;
+            height: 200px;
+
+        }
+        .container ul li a{
+
+            display: inline-block;
+            margin-bottom: 10px;
+            padding: 10px 20px;
+            background-color: white;
+            color: #e84393;
+            text-decoration: none;
+            border-radius: 5px;
+
+
+        }
+        td{
+            color: #e84393;
+        }
+        input{
+            width: 50%;
+        }
+
+
+    </style>
+</head>
+<body>
+<header th:replace="template :: header"></header>
+<div layout:fragment="content">
+    <section class="home" id="home">
+
+        <h1>Livraison de cette commande</h1>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Nom du Livreur</th>
+                <th>Date de Livraison</th>
+                <th>Montant Total</th>
+                <th>Produit</th>
+                <th>Rue</th>
+                <th>Ville</th>
+                <th>Pays</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="livraison : ${livraisons}">
+                <td th:text="${livraison.livreur.nom}"></td>
+                <td th:text="${#dates.format(livraison.dateLivraison, 'dd/MM/yyyy')}"></td>
+                <td th:text="${livraison.commande.getMontantTotal()}"></td>
+                <td>
+                    <ul>
+                        <li th:each="produit : ${livraison.commande.produits}" th:text="${produit.nom}"></li>
+                    </ul>
+                </td>                <td th:text="${livraison.commande.getAdresseLivraison().getRue()}"></td>
+                <td th:text="${livraison.commande.getAdresseLivraison().getVille()}"></td>
+                <td th:text="${livraison.commande.getAdresseLivraison().getPays()}"></td>
+
+
+            </tr>
+            </tbody>
+        </table>
+    </section>
+
+
+    <footer th:replace="template" :: footer></footer>
+</div>
+</body>
+</html>

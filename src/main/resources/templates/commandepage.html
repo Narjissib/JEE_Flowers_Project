@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.com"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="template"
+      lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>Index page</title>
+    <link rel="stylesheet" type="text/css" href="webjars/bootstrap/5.3.3/css/bootstrap.min.css"/>
+    <script src="webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        section {
+            padding: 2rem 9%;
+        }
+        .home {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 88vh;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+        }
+        .content {
+            margin-top: 60px;
+            max-width: 150rem;
+            width: 80%; /* Augmenter la largeur du contenu */
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            font-size: 16px; /* Augmenter la taille de la police dans le tableau */
+        }
+        th, td {
+            padding: 15px; /* Augmenter le rembourrage */
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold; /* Ajouter un style de police plus gras */
+        }
+        tr:hover {
+            background-color: #f9f9f9;
+        }
+        form input[type="text"],
+        form input[type="number"],
+        form select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        form button[type="submit"] {
+            padding: 10px 20px;
+            background-color: #404040;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        form button[type="submit"]:hover {
+            background-color: #181818;
+        }
+
+    </style>
+</head>
+<body>
+<header th:replace="template :: header"></header>
+<div layout:fragment="content">
+    <section class="home" id="home">
+        <div class="content">
+            <h1>Commande</h1>
+            <form method="post" action="/passer-commande">
+                <h2>Produits dans le panier :</h2>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Nom du produit</th>
+                            <th>Prix</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="panier : ${listeDesProduitsDansLePanier}">
+                            <td th:text="${panier.produit.nom}"></td>
+                            <td th:text="${panier.produit.prix}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h2>Total : <span th:text="${prixTotal}"></span></h2>
+
+                <!-- Formulaire pour ajouter l'adresse -->
+                <input type="hidden" name="commandeId" th:value="${commandeId}" />
+                <div class="mb-3">
+                    <label for="rue" class="form-label">Rue</label>
+                    <input type="text" class="form-control" id="rue" name="rue" required>
+                </div>
+                <div class="mb-3">
+                    <label for="ville" class="form-label">Ville</label>
+                    <input type="text" class="form-control" id="ville" name="ville" required>
+                </div>
+                <div class="mb-3">
+                    <label for="pays" class="form-label">Pays</label>
+                    <input type="text" class="form-control" id="pays" name="pays" required>
+                </div>
+
+                <button type="submit">Confirmer la commande</button>
+            </form>
+        </div>
+    </section>
+    <footer th:replace="template" :: footer></footer>
+</div>
+</body>
+</html>

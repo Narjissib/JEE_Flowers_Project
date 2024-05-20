@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.com"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="template"
+      lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <title>Index page</title>
+  <link rel="stylesheet" type="text/css" href="webjars/bootstrap/5.3.3/css/bootstrap.min.css"/>
+  <script src="webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center; /* Centrer le contenu */
+      font-size: 1.6rem; /* Augmenter la taille de la police */
+      margin-top: 10rem; /* Ajouter de l'espace entre le navbar et le contenu */
+    }
+    section {
+      padding: 2rem 9%;
+    }
+    .confirmation {
+      margin-top: 4rem; /* Ajouter de l'espace entre la div de confirmation et le contenu précédent */
+      max-width: 100%; /* Largeur maximale ajustée */
+      width: 60%;
+      background-color: #fff;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      margin: 0 auto; /* Centrer le conteneur */
+    }
+    .content {
+      display: flex; /* Utiliser flexbox */
+      flex-direction: column; /* Aligner verticalement */
+      justify-content: center; /* Aligner horizontalement */
+      align-items: center; /* Aligner verticalement */
+      text-align: center; /* Centrer le texte */
+    }
+    h1, h2, h3 {
+      color: #333;
+      font-size: 1.5rem; /* Augmenter la taille de la police des titres */
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      border-radius: 5px;
+      overflow: hidden;
+      margin-bottom: 20px;
+      margin-top: 20px;
+    }
+    th, td {
+      padding: 15px; /* Augmenter la taille de la cellule */
+      text-align: center; /* Centrer le contenu */
+      border-bottom: 1px solid #ddd;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+    tr:hover {
+      background-color: #f9f9f9;
+    }
+    .btn {
+      display: inline-block;
+      margin-top: 2rem; /* Ajouter de l'espace au-dessus du bouton */
+      border-radius: 5rem;
+      background: #333;
+      color: #fff;
+      padding: 1.5rem 5rem; /* Ajuster le rembourrage */
+      cursor: pointer;
+      font-size: 1.7rem;
+      text-decoration: none; /* Supprimer la décoration du lien */
+    }
+    .btn:hover {
+      background: var(--pink);
+    }
+    li{
+      list-style-type: none; /* Suppression des puces */
+
+    }
+    a{
+      font-size: 1.7rem;
+      color: #333;
+      margin-left: 1.5rem;
+    }
+    a:hover {
+      color: var(--pink);
+      transform: scale(1.1);
+    }
+  </style>
+</head>
+<body>
+<header th:replace="template :: header"></header>
+<div layout:fragment="content">
+  <section class="confirmation">
+    <div class="content">
+      <h2>Voici la liste des commandes :</h2>
+      <table>
+        <thead>
+        <tr>
+          <th>Numéro de commande</th>
+          <th>Produits</th>
+          <th>Montant Total</th>
+          <th>Adresse de livraison</th>
+          <th>Livraison</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Boucle à travers toutes les commandes -->
+        <tr th:each="commande : ${listeCommandes}">
+          <td th:text="${commande.id}"></td> <!-- Remplacez id par le nom de votre propriété pour le numéro de commande -->
+          <td>
+            <!-- Boucle à travers les produits de chaque commande -->
+            <ul>
+              <li th:each="produit : ${commande.produits}" th:text="${produit.nom + ' - ' + produit.prix}"></li>
+            </ul>
+          </td>
+          <td th:text="${commande.montantTotal}"></td>
+          <td>
+            <!-- Vérifiez si l'adresse de livraison existe avant d'afficher ses détails -->
+            <span th:if="${commande.adresseLivraison}">
+                            <span th:text="${commande.adresseLivraison.rue + ', ' + commande.adresseLivraison.ville + ', ' + commande.adresseLivraison.pays}"></span>
+                        </span>
+            <span th:unless="${commande.adresseLivraison}">Adresse de livraison non spécifiée</span>
+          </td>
+          <td>
+            <a th:href="@{/livraison/{id}(id=${commande.id})}" >Gérer la Livraison</a>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+  <footer th:replace="template" :: footer></footer>
+</div>
+</body>
+</html>

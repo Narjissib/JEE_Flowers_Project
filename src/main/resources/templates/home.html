@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.com"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="template"
+      lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>Index page</title>
+    <link rel="stylesheet" type="text/css" href="webjars/bootstrap/5.3.3/css/bootstrap.min.css"/>
+    <script src="webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+    <style>
+        section{
+            padding: 2rem 9%;
+        }
+        .home{
+           display: flex;
+            align-items: center;
+            min-height: 88vh;
+            background: url('imgs/BGPIC14.jpg');
+            background-repeat : no-repeat;
+            background-size: cover;
+            background-position: center;
+        }
+        .content{
+            max-width: 50rem;
+            margin-top: 7%;
+
+        }
+        h3{
+            font-size: 4.2rem;
+            color: #333;
+        }
+        span{
+            font-size: 4.2rem;
+            color: var(--pink);
+            padding: 1rem 0;
+            line-height: 1.5;
+        }
+        #p1{
+            font-size: 2.1rem;
+            color: #fff;
+            padding: 1rem 0;
+            line-height: 1.5;
+        }
+        .btn{
+            display: inline-block;
+            margin-top: 1rem;
+            border-radius: 5rem;
+            background: #333;
+            color: #fff;
+            padding: .9rem 3.5rem;
+            cursor:pointer;
+            font-size: 1.7rem;
+        }
+        .btn:hover{
+            background: var(--pink);
+        }
+        img{
+            width:250px;
+            height: 25rem;
+
+        }
+        .box-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-top: 3%;
+            margin-bottom: 3rem;
+        }
+
+        .box {
+            width: 300px;
+            height: 300px;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            /* Réduit l'espace entre les boîtes */
+             /* Réduit l'espace entre les boîtes */
+            display: inline-block;
+            vertical-align: top;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.3);
+        }
+        .box:hover{
+           transform: scale(1.1);
+        }
+
+
+
+        .image{
+            position: relative;
+            text-align: center;
+            padding-top: 2rem;
+            overflow: hidden;
+            width: 100%; /* Largeur de l'image */
+            height: 100%; /* Hauteur de l'image */
+        }
+        .heading{
+            text-align: center;
+            font-size: 4rem;
+            color: #333333;
+            padding: 1rem;
+            margin: 2rem 0;
+            background: rgba(255,51,153,.05);
+        }
+        .row{
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            padding: 2rem 0;
+            padding-bottom: 3rem;
+        }
+        .img-container {
+            flex: 1 1 60%; /* Ajustez la largeur comme vous le souhaitez */
+            position: relative;
+            text-align: center; /* Centrer l'image horizontalement */
+        }
+
+        .img-container img {
+            width: 80%; /* Assurez-vous que l'image occupe toute la largeur de son conteneur */
+            border: 1.5rem solid #fff;
+            border-radius: .5rem;
+            box-shadow: 0 .5rem 1rem rgba(0,0,0,.1);
+            height: 100%;
+            object-fit: cover;
+        }
+        .img-container h3{
+            position: absolute;
+            top: 80%;
+            transform: translateY(-50%);
+            font-size: 3rem;
+            background: #ffffff;
+            width: 100%;
+            padding: 1rem 2rem;
+            text-align: center;
+            mix-blend-mode:screen ;
+
+
+        }
+        .about .row .content{
+            flex: 1 1 40rem;
+
+        }
+        .about .row .content h3{
+            font-size: 3rem;
+            color: #333333;
+        }
+        .about .row .content p{
+            font-size: 1.5rem;
+            color: #666666;
+            padding: 5rem 0;
+            padding-top: 1rem;
+            line-height: 1.5;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </style>
+</head>
+<body>
+<header th:replace="template :: header"></header>
+<div layout:fragment="content">
+       <section class="home" id="home">
+           <div class="content">
+               <h3>Nos Fleurs Fraiches</h3>
+               <span>Belles & Naturelles Fleurs</span>
+               <p id="p1">Les fleurs, avec leurs couleurs vives et leurs parfums enivrants, égayent notre quotidien et ajoutent une touche de beauté à notre monde. Leurs pétales délicats et leurs formes élégantes captivent notre regard et réveillent nos sens, nous rappelant la splendeur de la nature et la richesse de la vie. Découvrez les différents types de fleurs et laissez-vous transporter dans un monde de diversité florale, où chaque variété offre sa propre histoire et sa propre beauté unique.</p>
+               <a th:href="'#products'" class="btn">Découvrir notre fleurs</a>
+
+           </div>
+       </section>
+    <section class="products" id="products">
+        <h3 class="heading" style="text-align: center">Notre <span>Produits</span></h3>
+            <div class="box-container">
+
+                <div class="box" style=" margin-left: 30rem;">
+                    <div class="image">
+                        <img src="imgs/fleurprin.jpg">
+                        <div class="icons" style=" display: flex;justify-content: center; /* Alignement horizontal au centre */">
+                        <a href="/fleurpage" class="cart-btn">Découvrire notre fleurs</a>
+                    </div>
+                        </div>
+                </div>
+                <div class="box" style="margin-right: 27rem;">
+                    <div class="image">
+                        <img src="imgs/plante.png">
+                        <div class="icons" style=" display: flex;justify-content: center; /* Alignement horizontal au centre */">
+                        <a href="/indexpage" class="cart-btn">Découvrire notre plantes</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </section>
+    <section class="about" id="about">
+        <h1 class="heading">Découvrire l'histoire d'une fleur </h1>
+        <div class="row">
+            <div class="img-container">
+              <img src="imgs/img.webp">
+                <h3>Fleur du Narciss</h3>
+            </div>
+            <div class="content">
+                <h3>A propos de Narciss</h3>
+                <p>La fleur de Narcisse, aussi appelée Narcisse ou Jonquille, est une fleur à la beauté délicate mais au symbolisme puissant. Originaire d'Europe et
+                    d'Afrique du Nord, le Narcisse est une plante bulbeuse qui produit des fleurs en forme de coupe, souvent d'un jaune vif et lumineux, bien qu'il
+                    existe des variétés blanches et orangées. La fleur de Narcisse est associée à diverses significations à travers les cultures, mais elle est souvent
+                    symbole de renouveau, de renaissance et de nouvelles opportunités, en raison de sa floraison au début du printemps, annonçant l'arrivée de cette
+                    saison de renouveau.</p>
+            </div>
+        </div>
+    </section>
+
+
+    <footer th:replace="template" :: footer></footer>
+</div>
+</body>
+</html>

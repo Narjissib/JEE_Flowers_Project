@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liste des Livraisons</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.3/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            padding: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Liste des Livraisons</h1>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Nom du Livreur</th>
+            <th>Date de Livraison</th>
+            <th>Montant Total</th>
+            <th>Produit</th>
+            <th>Rue</th>
+            <th>Ville</th>
+            <th>Pays</th>
+            <th>Commande</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Boucle sur toutes les livraisons -->
+        <tr th:each="livraison : ${livraisons}">
+            <td th:text="${livraison.livreur.nom}"></td>
+            <td th:text="${#dates.format(livraison.dateLivraison, 'dd/MM/yyyy')}"></td>
+            <td th:text="${livraison.commande.getMontantTotal()}"></td>
+            <td>
+                <!-- Boucle sur tous les produits de la commande -->
+                <ul>
+                    <li th:each="produit : ${livraison.commande.produits}" th:text="${produit.nom}"></li>
+                </ul>
+            </td>
+            <td th:text="${livraison.commande.adresseLivraison.rue}"></td>
+            <td th:text="${livraison.commande.adresseLivraison.ville}"></td>
+            <td th:text="${livraison.commande.adresseLivraison.pays}"></td>
+            <td th:text="${livraison.commande.id}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

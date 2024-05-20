@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modifier un arbre</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.3/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background-color: rgba(0, 0, 0, 0.5); /* Fond semi-transparent */
+            z-index: 9999; /* Assure que la boîte de dialogue est au-dessus de tout le reste */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .dialogue {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            width: 500px; /* Largeur de la boîte de dialogue */
+            max-width: 80%; /* Pourcentage de la largeur maximale */
+        }
+
+        .dialogue span {
+            text-align: center;
+        }
+
+        .dialogue input {
+            width: 90%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .dialogue textarea{
+            width: 90%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .dialogue button {
+            display: inline-block;
+            margin-top: 1rem;
+            border-radius: 5rem;
+            background: #333;
+            color: #fff;
+            padding: .7rem 1.7rem;
+            cursor:pointer;
+            font-size: 0.9rem;
+        }
+
+        .dialogue button:hover {
+            background-color:  #e84393;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <form method="post" action="/modifer-fleur" class="dialogue">
+        <span>Modifier un bouquet</span>
+        <br>
+        <input name="id" type="hidden" th:value="${fleurToBeUpdated.getId()}">
+        Nom du bouquet:
+        <input name="nom" type="text" th:value="${fleurToBeUpdated.getNom()}">
+        Description du bouquet:
+        <input name="description" type="text" th:value="${fleurToBeUpdated.getDescription()}">
+        Prix du bouquet:
+        <input type="number"  name="prix" step="0.01" th:value="${fleurToBeUpdated.getPrix()}">
+        Image du bouquet:
+        <input type="text" name="image" th:value="${fleurToBeUpdated.getImage()}">
+        Couleur du bouquet:
+        <input name="couleur" type="text" th:value="${fleurToBeUpdated.getCouleur()}">
+        <button>Modifier</button>
+    </form>
+
+</div>
+</body>
+</html>

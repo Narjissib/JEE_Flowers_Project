@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.com"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet"
+          href="/webjars/bootstrap/5.3.3/css/bootstrap.min.css"/>
+    <script type="text/javascript" src="/webjars/bootstrap/5.3.3/js/bootstrap.bundle.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/5.3.3/js/bootstrap.min.js"></script>
+    <style>
+        :root{
+            --pink:#e84393
+        }
+        *{
+            margin:0;padding: 0;
+            box-sizing: border-box;
+            font-family: Verdana, Geneva, Tahoma,sans-serif;
+            outline: none;
+            border: none;
+            text-decoration: none;
+            text-transform: capitalize;
+            transition: .2s linear;
+        }
+        html{
+            font-size: 59%;
+            scroll-behavior: smooth;
+            scroll-padding-top:2rem ;
+            overflow-x: hidden;
+        }
+        .card-header{
+            position: fixed;
+            top: 0;left: 0;right: 0;
+            background: #fff;
+            padding: 2rem 9%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            z-index: 1000;
+            box-shadow: 0 .5rem 1rem rgba(0,0,0,.1);
+        }
+        .logo{
+            font-size: 3rem;
+            color: #333;
+            font-weight: bolder;
+        }
+        span{
+            color: var(--pink);
+        }
+        .navbar {
+            display: flex;
+            align-items: center;
+        }
+        .navbar a{
+            font-size: 2rem;
+            padding: 0 1.5rem;
+            color: #666;
+            white-space: nowrap; /* Empêche le retour à la ligne */
+        }
+        .navbar a:hover{
+            color: var(--pink);
+        }
+        .icons a{
+            font-size: 2rem;
+            color: #333;
+            margin-left: 1.5rem;
+        }
+        .icons a:hover {
+            color: var(--pink);
+            transform: scale(1.1);
+        }
+
+        .dropdown-menu{
+            position: absolute;
+            top:100%;
+            left: 0;
+            width: 230px;
+            padding: 15px 0;
+            background-color:#fff ;
+            z-index:1;
+            list-style-type: none; /* Suppression des puces */
+            display: none; /* Cacher le menu par défaut */
+        }
+        .dropdown-menu a{
+            padding: 6px 24px;
+        }
+
+        .card-footer {
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #fff;
+            padding: 1rem 9%;
+            text-align: center;
+            z-index: 1000;
+            box-shadow: 0 -.5rem 1rem rgba(0,0,0,.1);
+        }
+        .box-container1{
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+        .box1{
+            flex: 1 1 25rem;
+
+        }
+        .box1 h3{
+            color: #333333;
+            font-size: 2.5rem;
+            padding: 1rem 0;
+
+        }
+        .box1 a{
+            display: block;
+            color: #666;
+            font-size: 1.5rem;
+            padding: 1rem 0;
+        }
+        .box a:hover{
+            color: #e84393;
+            text-decoration: underline;
+        }
+        .credit{
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+            padding-top: 2.5rem;
+            font-size: 2rem;
+            color: #333333;
+            border-top: 1rem solid rgba(0,0,0,.1);
+        }
+        .credit span{
+            color: #e84393;
+        }
+
+        /* Styles supplémentaires pour le contenu du pied de page */
+        .card-footer p {
+            margin-bottom: 0.5rem;
+            color: #666;
+        }
+        .logo:hover{
+            text-decoration: none;
+            color: #e84393;
+        }
+        .dropdown{
+            position: relative;
+            padding-right: 15px;
+        }
+        .dropdown:hover .dropdown-menu {
+            display: block; /* Afficher le menu au survol */
+        }
+        i{
+            font-size: 10px;
+            pointer-events: none;
+            user-select: none;
+            position: absolute;
+            color: #333333;
+            top: calc(50% - 3px);
+            right: 10px;
+        }
+        .card-header.navbar .dropdown i{
+            right: 0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <header th:fragment="header" class="card-header">
+        <a href="/homePage" class="logo">flowers<span>.</span></a>
+        <nav class="navbar">
+            <a href="/homePage">Accueil</a>
+            <div class="dropdown">
+                <a href="#" id="productDropdownBtn">Produit</a>
+                <i class="fa-solid fa-chevron-down"></i>
+                <ul class="dropdown-menu" aria-labelledby="productDropdownBtn">
+                    <li><a href="fleurpage">Bouquets</a></li>
+                    <li><a href="indexpage">Plantes</a></li>
+                </ul>
+            </div>
+            <a href="#about">Blog</a>
+            <a th:if="${#authorization.expression('hasRole(''admin'')')}" href="liste-commandes" >Commande</a>
+            <a th:if="${#authorization.expression('hasRole(''admin'')')}" href="livreur" >Livreur</a>
+            <a th:if="${#authorization.expression('hasRole(''admin'')')}" href="/livraisons" >Livraison</a>
+        </nav>
+        <div class="icons">
+            <a th:if="${#authorization.expression('hasRole(''user'')')}" href="/favori" class="fas fa-heart"></a>
+            <a th:if="${#authorization.expression('hasRole(''user'')')}" href="/panier" class="fas fa-shopping-cart"></a>
+            <a sec:authorize="isAuthenticated()" th:href="@{/logout}" class="fas fa-sign-out-alt"></a>
+            <a sec:authorize="!isAuthenticated()" th:href="@{/login}" class="fas fa-user"></a>
+
+        </div>
+    </header>
+    <div class="card-body">
+        <!-- Votre contenu ici -->
+        <section layout:fragment="content"></section>
+    </div>
+    <!-- Section du pied de page -->
+    <footer class="card-footer">
+       <div class="box-container1">
+           <div class="box1">
+               <h3>Lien rapide</h3>
+               <a href="/homePage">home</a>
+               <a href="#products">Produit</a>
+               <a href="#about">Blog</a>
+           </div>
+           <div class="box1">
+               <h3>Site</h3>
+               <a href="#">Casablanca,Maroc</a>
+               <a href="#">Rababt,Maroc</a>
+               <a href="#">Tanger,Maroc</a>
+           </div>
+           <div class="box1">
+               <h3>Contact information</h3>
+               <a href="#">+212677252528</a>
+               <a href="#">Casablanca, Maroc</a>
+           </div>
+       </div>
+    </footer>
+</div>
+
+<!-- JavaScript pour contrôler l'affichage du menu déroulant -->
+
+</body>
+</html>
